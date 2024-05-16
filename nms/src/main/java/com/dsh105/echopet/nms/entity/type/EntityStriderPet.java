@@ -44,11 +44,11 @@ public class EntityStriderPet extends EntityAgeablePet implements IEntityStrider
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_BOOST_TIME, 0);
-		this.entityData.define(DATA_SUFFOCATING, false);
-		this.entityData.define(DATA_SADDLE_ID, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_BOOST_TIME, 0);
+		builder.define(DATA_SUFFOCATING, false);
+		builder.define(DATA_SADDLE_ID, false);
 	}
 	
 	@Override

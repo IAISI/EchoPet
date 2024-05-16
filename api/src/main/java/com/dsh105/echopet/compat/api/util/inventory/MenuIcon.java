@@ -19,11 +19,12 @@ package com.dsh105.echopet.compat.api.util.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.dsh105.echopet.compat.api.plugin.EchoPet;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SpawnEggMeta;
 
 public class MenuIcon{
 	
@@ -73,10 +74,10 @@ public class MenuIcon{
 			currentLore.addAll(lore);
 			meta.setLore(currentLore);
 		}
-		i.setItemMeta(meta);
-		if(entityTag != null){
-			i = EchoPet.getPlugin().getSpawnUtil().getSpawnEgg(i, entityTag);
+		if(entityTag != null && meta instanceof SpawnEggMeta eggMeta){
+			eggMeta.setCustomSpawnedType(EntityType.valueOf(entityTag));
 		}
+		i.setItemMeta(meta);
 		return i;
 	}
 	

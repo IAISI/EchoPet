@@ -19,13 +19,13 @@ package com.dsh105.echopet.nms.entity.ai.brain;
 
 
 import java.util.function.Predicate;
-import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.type.EntityCamelPet;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -52,8 +52,9 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.camel.Camel;
+import net.minecraft.world.entity.animal.camel.CamelAi;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
 
 public class PetCamelAi{
 	
@@ -88,7 +89,7 @@ public class PetCamelAi{
 		brain.addActivity(Activity.CORE, 0,
 			ImmutableList.of(
 				new Swim(0.8F),
-				new CamelPanic(SPEED_MULTIPLIER_WHEN_PANICKING),
+				new CamelAi.CamelPanic(SPEED_MULTIPLIER_WHEN_PANICKING),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
@@ -103,7 +104,7 @@ public class PetCamelAi{
 		brain.addActivity(Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(EntityType.CAMEL, SPEED_MULTIPLIER_WHEN_MAKING_LOVE)),
+				Pair.of(1, new AnimalMakeLove(EntityType.CAMEL)),
 				Pair.of(2, new FollowTemptation((entity)->{
 					return SPEED_MULTIPLIER_WHEN_TEMPTED;
 				})),
@@ -127,8 +128,8 @@ public class PetCamelAi{
 		camel.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
 	}
 	
-	public static Ingredient getTemptations(){
-		return Camel.TEMPTATION_ITEM;
+	public static Predicate<ItemStack> getTemptations(){
+		return stack->stack.is(ItemTags.CAMEL_FOOD);
 	}
 	
 	public static class CamelPanic extends AnimalPanic{
@@ -158,7 +159,7 @@ public class PetCamelAi{
 		
 		@Override
 		protected boolean checkExtraStartConditions(ServerLevel world, EntityCamelPet entity){
-			return !entity.isInWater() && entity.getPoseTime() >= (long) this.minimalPoseTicks && !entity.isLeashed() && VersionBreaking.onGround(entity) && !entity.hasControllingPassenger();
+			return !entity.isInWater() && entity.getPoseTime() >= (long) this.minimalPoseTicks && !entity.isLeashed() && entity.onGround() && !entity.hasControllingPassenger();
 		}
 		
 		@Override

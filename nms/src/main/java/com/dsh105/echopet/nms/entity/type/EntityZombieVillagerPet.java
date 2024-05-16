@@ -48,10 +48,10 @@ public class EntityZombieVillagerPet extends EntityZombiePet implements IEntityZ
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_CONVERTING_ID, false);
-		this.entityData.define(DATA_VILLAGER_DATA, new VillagerData(VillagerType.PLAINS, VillagerProfession.NONE, 1));
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_CONVERTING_ID, false);
+		builder.define(DATA_VILLAGER_DATA, new VillagerData(VillagerType.PLAINS, VillagerProfession.NONE, 1));
 	}
 	
 	@Override

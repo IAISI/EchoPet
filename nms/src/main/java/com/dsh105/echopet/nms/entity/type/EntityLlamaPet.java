@@ -34,7 +34,7 @@ import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.CraftWorld;
 
 @EntityPetType(petType = PetType.LLAMA)
 public class EntityLlamaPet extends Llama implements IEntityAnimalPet, EntityPetGiveMeAccess{
@@ -71,7 +71,7 @@ public class EntityLlamaPet extends Llama implements IEntityAnimalPet, EntityPet
 	@Override
 	public void setLocation(Location location){
 		this.absMoveTo(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-		VersionBreaking.setLevel(this, ((CraftWorld) location.getWorld()).getHandle());
+		setLevel(((CraftWorld) location.getWorld()).getHandle());
 	}
 	
 	@Override

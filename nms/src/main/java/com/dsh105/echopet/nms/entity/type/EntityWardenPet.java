@@ -53,7 +53,7 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 
 @EntityPetType(petType = PetType.WARDEN)
@@ -119,7 +119,7 @@ public class EntityWardenPet extends Warden implements IEntityLivingPet, EntityP
 		if(isVehicle()){
 			return;
 		}
-		ServerLevel serverLevel = (ServerLevel) VersionBreaking.level(this);
+		ServerLevel serverLevel = (ServerLevel) level();
 		serverLevel.getProfiler().push("wardenBrain");
 		this.getBrain().tick(serverLevel, this);
 		serverLevel.getProfiler().pop();
@@ -159,7 +159,7 @@ public class EntityWardenPet extends Warden implements IEntityLivingPet, EntityP
 	@Override
 	public void setLocation(Location location){
 		this.absMoveTo(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-		VersionBreaking.setLevel(this, ((CraftWorld) location.getWorld()).getHandle());
+		setLevel(((CraftWorld) location.getWorld()).getHandle());
 	}
 	
 	@Override

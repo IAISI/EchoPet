@@ -43,9 +43,9 @@ public class EntityMushroomCowPet extends EntityCowPet implements IEntityMushroo
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_TYPE, MushroomCow.Variant.RED.name().toLowerCase());// Mojang grabs the string variable but we can't
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_TYPE, MushroomCow.Variant.RED.name().toLowerCase());// Mojang grabs the string variable but we can't
 	}
 	
 	@Override

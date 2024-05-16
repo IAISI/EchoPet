@@ -51,14 +51,14 @@ public class EntityPandaPet extends EntityAgeablePet implements IEntityPandaPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(UNHAPPY_COUNTER, 0);
-		this.entityData.define(SNEEZE_COUNTER, 0);
-		this.entityData.define(MAIN_GENE_ID, (byte) 0);
-		this.entityData.define(HIDDEN_GENE_ID, (byte) 0);
-		this.entityData.define(DATA_ID_FLAGS, (byte) 0);
-		this.entityData.define(EAT_COUNTER, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(UNHAPPY_COUNTER, 0);
+		builder.define(SNEEZE_COUNTER, 0);
+		builder.define(MAIN_GENE_ID, (byte) 0);
+		builder.define(HIDDEN_GENE_ID, (byte) 0);
+		builder.define(DATA_ID_FLAGS, (byte) 0);
+		builder.define(EAT_COUNTER, 0);
 	}
 	
 	@Override

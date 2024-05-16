@@ -59,9 +59,9 @@ public class EntityZombiePet extends EntityAgeablePet implements IEntityZombiePe
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		entityData.define(DATA_SPECIAL_TYPE_ID, 0);
-		entityData.define(DATA_DROWNED_CONVERSION_ID, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_SPECIAL_TYPE_ID, 0);
+		builder.define(DATA_DROWNED_CONVERSION_ID, false);
 	}
 }

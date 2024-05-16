@@ -34,7 +34,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.jetbrains.annotations.Nullable;
 
 /*
@@ -122,7 +122,7 @@ public class NMSEntityUtil{
 				Map<Attribute, AttributeInstance> attributes = (Map<Attribute, AttributeInstance>) attributeField.get(attributeMap);
 				var instance = new AttributeInstance(Attributes.FLYING_SPEED, d->{});
 				instance.setBaseValue(IPet.GOAL_FLY_SPEED.getNumber(petType).doubleValue());
-				attributes.put(Attributes.FLYING_SPEED, instance);
+				attributes.put(Attributes.FLYING_SPEED.value(), instance);
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();

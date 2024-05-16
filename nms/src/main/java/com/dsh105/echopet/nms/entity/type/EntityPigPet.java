@@ -52,9 +52,9 @@ public class EntityPigPet extends EntityAgeablePet implements IEntityPigPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_SADDLE_ID, Boolean.FALSE);
-		this.entityData.define(DATA_BOOST_TIME, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_SADDLE_ID, Boolean.FALSE);
+		builder.define(DATA_BOOST_TIME, 0);
 	}
 }

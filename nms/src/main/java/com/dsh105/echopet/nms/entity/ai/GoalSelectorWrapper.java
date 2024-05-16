@@ -18,7 +18,6 @@
 package com.dsh105.echopet.nms.entity.ai;
 
 import java.util.Set;
-import java.util.stream.Stream;
 import com.dsh105.echopet.compat.api.ai.PetGoal;
 import com.dsh105.echopet.compat.api.ai.PetGoalSelector;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -63,16 +62,6 @@ public class GoalSelectorWrapper extends GoalSelector{
 	@Override
 	public Set<WrappedGoal> getAvailableGoals(){
 		return emptySet;
-	}
-	
-	@Override
-	public Stream<WrappedGoal> getRunningGoals(){
-		return super.getRunningGoals();
-	}
-	
-	@Override
-	public void setNewGoalRate(int var0){
-		//
 	}
 	
 	@Override

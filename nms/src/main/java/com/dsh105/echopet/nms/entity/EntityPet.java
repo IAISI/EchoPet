@@ -26,11 +26,12 @@ import com.dsh105.echopet.compat.api.event.PetRideJumpEvent;
 import com.dsh105.echopet.compat.api.event.PetRideMoveEvent;
 import com.dsh105.echopet.compat.api.plugin.EchoPet;
 import com.dsh105.echopet.nms.NMSEntityUtil;
-import com.dsh105.echopet.nms.RegistryType;
 import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.handle.EntityPetHandle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -44,10 +45,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 @Deprecated
@@ -129,7 +130,7 @@ public abstract class EntityPet extends Mob implements IEntityLivingPet{
 	}
 	
 	public float getWalkTargetValue(BlockPos blockposition){
-		return this.getWalkTargetValue(blockposition, VersionBreaking.level(this));
+		return this.getWalkTargetValue(blockposition, level());
 	}
 	
 	public float getWalkTargetValue(BlockPos blockposition, LevelReader iworldreader){
@@ -144,7 +145,7 @@ public abstract class EntityPet extends Mob implements IEntityLivingPet{
 	@Override
 	public void setLocation(Location location){
 		this.absMoveTo(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-		VersionBreaking.setLevel(this, ((CraftWorld) location.getWorld()).getHandle());
+		setLevel(((CraftWorld) location.getWorld()).getHandle());
 	}
 	
 	@Override
@@ -321,7 +322,7 @@ public abstract class EntityPet extends Mob implements IEntityLivingPet{
 	}
 	
 	public SoundEvent getSoundFromString(String soundName){
-		return soundName != null ? VersionBreaking.getRegistry(RegistryType.Sound_Event, new ResourceLocation(soundName)) : null;
+		return soundName != null ? BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(soundName)) : null;
 		// mojang made this method private
 		// return soundName != null ? SoundEffect.a.get(new MinecraftKey(soundName)) : null;
 	}
@@ -361,8 +362,8 @@ public abstract class EntityPet extends Mob implements IEntityLivingPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
 	}
 	
 	@Override

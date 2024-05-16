@@ -23,7 +23,6 @@ import com.dsh105.echopet.compat.api.entity.PetType;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.IEntityEndermanPet;
 import com.dsh105.echopet.compat.api.entity.type.pet.IEndermanPet;
-import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.EntityPet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -35,7 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 @EntityPetType(petType = PetType.ENDERMAN)
 public class EntityEndermanPet extends EntityPet implements IEntityEndermanPet{
 	
-	private static final EntityDataAccessor<Optional<BlockState>> DATA_CARRY_STATE = SynchedEntityData.defineId(EntityEndermanPet.class, VersionBreaking.OPTIONAL_BLOCK_STATE);
+	private static final EntityDataAccessor<Optional<BlockState>> DATA_CARRY_STATE = SynchedEntityData.defineId(EntityEndermanPet.class, EntityDataSerializers.OPTIONAL_BLOCK_STATE);
 	// Changes ambient sound to scream
 	private static final EntityDataAccessor<Boolean> DATA_CREEPY = SynchedEntityData.defineId(EntityEndermanPet.class, EntityDataSerializers.BOOLEAN);
 	// Plays an initial sound when set as true
@@ -56,11 +55,11 @@ public class EntityEndermanPet extends EntityPet implements IEntityEndermanPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_CARRY_STATE, Optional.empty());
-		this.entityData.define(DATA_CREEPY, false);
-		this.entityData.define(DATA_STARED_AT, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_CARRY_STATE, Optional.empty());
+		builder.define(DATA_CREEPY, false);
+		builder.define(DATA_STARED_AT, false);
 	}
 	
 	public boolean isScreaming(){

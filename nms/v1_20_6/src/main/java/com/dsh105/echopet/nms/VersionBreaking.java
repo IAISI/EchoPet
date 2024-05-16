@@ -17,17 +17,16 @@
 
 package com.dsh105.echopet.nms;
 
-import com.dsh105.echopet.compat.api.util.ICraftBukkitUtil;
-import org.bukkit.craftbukkit.entity.CraftEntity;
-import org.bukkit.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
-public class CraftBukkitUtil implements ICraftBukkitUtil{
+public class VersionBreaking{
 	
-	@Override
-	public Object getEntityHandle(Entity entity){
-		if(!(entity instanceof CraftEntity craftEntity)){
-			return null;
-		}
-		return craftEntity.getHandle();
+	public static void setMaxUpStep(Entity entity, float maxStepUp){
+		// entity.setMaxUpStep(maxStepUp);
+	}
+	
+	public static void setFlyingSpeed(LivingEntity entity, float flyingSpeed){
+		//
 	}
 }

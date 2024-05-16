@@ -25,7 +25,6 @@ import com.dsh105.echopet.compat.api.entity.PetType;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.IEntityPhantomPet;
 import com.dsh105.echopet.compat.api.entity.type.pet.IPhantomPet;
-import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.ai.BiMoveControl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -81,9 +80,9 @@ public class EntityPhantomPet extends EntityFlyingPet implements IEntityPhantomP
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(ID_SIZE, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(ID_SIZE, 0);
 	}
 	
 	@Override
@@ -174,9 +173,7 @@ public class EntityPhantomPet extends EntityFlyingPet implements IEntityPhantomP
 		
 		@Override
 		public void stop(){
-			anchorPoint = VersionBreaking.level(EntityPhantomPet.this)
-				.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, anchorPoint)
-				.above(minHeightOffset + random().nextInt(randHeightOffset));
+			anchorPoint = level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, anchorPoint).above(minHeightOffset + random().nextInt(randHeightOffset));
 		}
 		
 		@Override
@@ -194,7 +191,7 @@ public class EntityPhantomPet extends EntityFlyingPet implements IEntityPhantomP
 		
 		private void setAnchorAboveTarget(){
 			Location loc = getPetOwner().getLocation();
-			BlockPos pos = VersionBreaking.blockPos(loc.getX(), loc.getY(), loc.getZ());
+			BlockPos pos = BlockPos.containing(loc.getX(), loc.getY(), loc.getZ());
 			anchorPoint = pos.above(minHeightOffset + random().nextInt(randHeightOffset));
 		}
 	}
@@ -272,7 +269,7 @@ public class EntityPhantomPet extends EntityFlyingPet implements IEntityPhantomP
 				this.selectNext();
 			}
 			
-			var level = VersionBreaking.level(EntityPhantomPet.this);
+			var level = level();
 			if(moveTargetPoint.y < getY() && !level.isEmptyBlock(blockPosition().below(1))){
 				this.height = Math.max(1.0F, this.height);
 				this.selectNext();

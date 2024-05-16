@@ -20,7 +20,6 @@ package com.dsh105.echopet.nms.entity.handle;
 import com.dsh105.echopet.compat.api.entity.data.type.HorseArmor;
 import com.dsh105.echopet.compat.api.entity.nms.IEntityAnimalPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.handle.IEntityHorsePetHandle;
-import com.dsh105.echopet.nms.VersionBreaking;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.Markings;
@@ -61,7 +60,7 @@ public class EntityHorsePetHandle extends EntityAbstractHorsePetHandle implement
 		};
 		var entity = get();
 		// setArmor is private, duplicate the code here.
-		VersionBreaking.setItemSlot(entity, EquipmentSlot.CHEST, item == null ? null : new ItemStack(item), true);
+		entity.setItemSlot(EquipmentSlot.CHEST, new ItemStack(item), true);
 		entity.setDropChance(EquipmentSlot.CHEST, 0);
 	}
 }

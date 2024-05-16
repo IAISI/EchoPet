@@ -37,7 +37,7 @@ public class EntityCatPetHandle extends EntityTameablePetHandle implements IEnti
 	
 	@Override
 	public void setType(CatType type){
-		get().setVariant(BuiltInRegistries.CAT_VARIANT.byId(type.ordinal()));
+		get().setVariant(BuiltInRegistries.CAT_VARIANT.asHolderIdMap().byId(type.ordinal()));
 	}
 	
 	@Override

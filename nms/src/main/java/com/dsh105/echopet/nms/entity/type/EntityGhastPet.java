@@ -45,9 +45,9 @@ public class EntityGhastPet extends EntityFlyingPet implements IEntityGhastPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_IS_CHARGING, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_IS_CHARGING, false);
 	}
 	
 	@Override

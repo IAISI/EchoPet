@@ -42,9 +42,9 @@ public class EntityPolarBearPet extends EntityAgeablePet implements IEntityPolar
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_STANDING_ID, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_STANDING_ID, false);
 	}
 	
 	@Override

@@ -20,13 +20,11 @@ package com.dsh105.echopet.nms.entity.handle;
 import com.dsh105.echopet.compat.api.entity.nms.IEntityLivingPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.handle.IEntityFrogPetHandle;
 import com.dsh105.echopet.compat.api.entity.type.pet.IFrogPet;
-import net.minecraft.world.entity.animal.FrogVariant;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.animal.frog.Frog;
 
 
 public class EntityFrogPetHandle extends LivingEntityPetHandle implements IEntityFrogPetHandle{
-	
-	private static final FrogVariant[] VARIANTS = {FrogVariant.TEMPERATE, FrogVariant.WARM, FrogVariant.COLD};
 	
 	public EntityFrogPetHandle(IEntityLivingPet entityPet){
 		super(entityPet);
@@ -38,6 +36,6 @@ public class EntityFrogPetHandle extends LivingEntityPetHandle implements IEntit
 	
 	@Override
 	public void setVariant(IFrogPet.Variant variant){
-		get().setVariant(VARIANTS[variant.ordinal()]);
+		get().setVariant(BuiltInRegistries.FROG_VARIANT.asHolderIdMap().byId(variant.ordinal()));
 	}
 }

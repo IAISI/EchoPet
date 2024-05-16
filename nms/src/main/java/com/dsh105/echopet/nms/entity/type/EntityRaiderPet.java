@@ -40,8 +40,8 @@ public abstract class EntityRaiderPet extends EntityPet implements IEntityRaider
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(IS_CELEBRATING, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(IS_CELEBRATING, false);
 	}
 }

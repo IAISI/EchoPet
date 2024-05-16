@@ -42,9 +42,9 @@ public class EntitySnowmanPet extends EntityPet implements IEntitySnowmanPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_PUMPKIN_ID, (byte) 16);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_PUMPKIN_ID, (byte) 16);
 	}
 	
 	@Override

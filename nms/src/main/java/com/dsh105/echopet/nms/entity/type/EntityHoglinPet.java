@@ -41,8 +41,8 @@ public class EntityHoglinPet extends EntityAgeablePet implements IEntityHoglinPe
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_IMMUNE_TO_ZOMBIFICATION, true);// Default to true to fix shaking when in overworld.
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_IMMUNE_TO_ZOMBIFICATION, true);// Default to true to fix shaking when in overworld.
 	}
 }

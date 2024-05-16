@@ -33,20 +33,20 @@ import com.dsh105.echopet.compat.api.util.ISpawnUtil;
 import com.dsh105.echopet.compat.api.util.Lang;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -75,25 +75,13 @@ public class SpawnUtil implements ISpawnUtil{
 		if(!l.getChunk().isLoaded()){
 			l.getChunk().load();
 		}
-		if(!VersionBreaking.addEntity(mcWorld, ((CraftEntity) entityPet.getEntity()).getHandle(), CreatureSpawnEvent.SpawnReason.CUSTOM)){
+		if(!mcWorld.addFreshEntity(((CraftEntity) entityPet.getEntity()).getHandle(), CreatureSpawnEvent.SpawnReason.CUSTOM)){
 			owner.sendMessage(EchoPet.getPrefix() + ChatColor.YELLOW + "Failed to spawn pet entity.");
 			EchoPet.getManager().removePet(pet, true);
 		}else{
-			owner.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, l, 1);
+			owner.getWorld().spawnParticle(Particle.ENCHANT, l, 1);
 		}
 		return entityPet;
-	}
-	
-	@Override
-	// This is kind of a dumb way to do this.. But I'm too lazy to fix my reflection
-	public org.bukkit.inventory.ItemStack getSpawnEgg(org.bukkit.inventory.ItemStack i, String entityTag){
-		ItemStack is = CraftItemStack.asNMSCopy(i);
-		CompoundTag nbt = is.getTag();
-		if(nbt == null) nbt = new CompoundTag();
-		if(!nbt.contains("EntityTag")) nbt.put("EntityTag", new CompoundTag());
-		if(!entityTag.startsWith("minecraft:")) entityTag = "minecraft:" + entityTag;
-		nbt.getCompound("EntityTag").putString("id", entityTag);
-		return CraftItemStack.asCraftMirror(is);
 	}
 	
 	private final Map<String, Class<?>> entityLookup = new HashMap<>();
@@ -102,7 +90,7 @@ public class SpawnUtil implements ISpawnUtil{
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getAttribute(IPetType petType, String attributeKey){
-		Attribute attribute = VersionBreaking.getRegistry(RegistryType.Attribute, ResourceLocation.tryParse(attributeKey));
+		Holder<Attribute> attribute = BuiltInRegistries.ATTRIBUTE.getHolder(ResourceLocation.tryParse(attributeKey)).orElse(null);
 		if(attribute == null){
 			return null;
 		}
@@ -167,12 +155,12 @@ public class SpawnUtil implements ISpawnUtil{
 	
 	@Override
 	public float getDefaultWidth(IPetType petType){
-		return getEntityType(petType.getMinecraftName()).map(EntityType::getDimensions).map(d->d.width).orElse(0f);
+		return getEntityType(petType.getMinecraftName()).map(EntityType::getDimensions).map(EntityDimensions::width).orElse(0f);
 	}
 	
 	@Override
 	public float getDefaultHeight(IPetType petType){
-		return getEntityType(petType.getMinecraftName()).map(EntityType::getDimensions).map(d->d.height).orElse(0f);
+		return getEntityType(petType.getMinecraftName()).map(EntityType::getDimensions).map(EntityDimensions::height).orElse(0f);
 	}
 	
 	private Field profileField = null;

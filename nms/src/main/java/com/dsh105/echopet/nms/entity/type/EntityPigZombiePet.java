@@ -21,6 +21,7 @@ import com.dsh105.echopet.compat.api.entity.EntityPetType;
 import com.dsh105.echopet.compat.api.entity.PetType;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.IEntityPigZombiePet;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
@@ -36,7 +37,7 @@ public class EntityPigZombiePet extends EntityZombiePet implements IEntityPigZom
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
 	}
 }

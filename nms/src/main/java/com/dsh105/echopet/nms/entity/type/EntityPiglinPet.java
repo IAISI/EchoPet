@@ -50,11 +50,11 @@ public class EntityPiglinPet extends EntityAbstractPiglinPet implements IEntityP
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_BABY_ID, false);
-		this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
-		this.entityData.define(DATA_IS_DANCING, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_BABY_ID, false);
+		builder.define(DATA_IS_CHARGING_CROSSBOW, false);
+		builder.define(DATA_IS_DANCING, false);
 	}
 	
 	@Override

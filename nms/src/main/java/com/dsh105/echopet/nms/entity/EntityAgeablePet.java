@@ -19,7 +19,6 @@ package com.dsh105.echopet.nms.entity;
 
 import com.dsh105.echopet.compat.api.entity.nms.IEntityAgeablePet;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
-import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.handle.EntityAgeablePetHandle;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -79,15 +78,15 @@ public abstract class EntityAgeablePet extends EntityPet implements IEntityAgeab
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_BABY_ID, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_BABY_ID, false);
 	}
 	
 	@Override
 	public void inactiveTick(){
 		super.inactiveTick();
-		if(!(VersionBreaking.level(this).isClientSide || this.ageLocked)){
+		if(!(level().isClientSide || this.ageLocked)){
 			int i = this.getAge();
 			if(i < 0){
 				++i;

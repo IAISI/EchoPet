@@ -46,10 +46,10 @@ public class EntityTameablePet extends EntityAgeablePet implements IEntityTameab
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
-		this.entityData.define(DATA_OWNERUUID_ID, Optional.empty());
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_FLAGS_ID, (byte) 0);
+		builder.define(DATA_OWNERUUID_ID, Optional.empty());
 	}
 	
 	public boolean isTamed(){

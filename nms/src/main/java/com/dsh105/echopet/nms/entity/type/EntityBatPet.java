@@ -22,7 +22,6 @@ import com.dsh105.echopet.compat.api.entity.PetType;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.IEntityBatPet;
 import com.dsh105.echopet.compat.api.entity.type.pet.IBatPet;
-import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.EntityPet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,7 +35,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 
 @EntityPetType(petType = PetType.BAT)
 public class EntityBatPet extends EntityPet implements IEntityBatPet{
@@ -58,9 +57,9 @@ public class EntityBatPet extends EntityPet implements IEntityBatPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_ID_FLAGS, (byte) 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_ID_FLAGS, (byte) 0);
 	}
 	
 	@Override
@@ -86,8 +85,8 @@ public class EntityBatPet extends EntityPet implements IEntityBatPet{
 			return;
 		}
 		BlockPos blockposition = this.blockPosition();
-		BlockPos blockposition1 = VersionBreaking.getBlockPosAbove(blockposition);
-		var level = VersionBreaking.level(this);
+		BlockPos blockposition1 = blockposition.above();
+		var level = level();
 		if(isResting()){
 			boolean flag = this.isSilent();
 			if(level.getBlockState(blockposition1).isRedstoneConductor(level, blockposition)){
@@ -110,9 +109,9 @@ public class EntityBatPet extends EntityPet implements IEntityBatPet{
 			// closerThan squares it internally
 			// I think it checking if its too close to the player is better.
 			ServerPlayer owner = ((CraftPlayer) getPetOwner()).getHandle();
-			if(this.targetPosition == null || random().nextInt(30) == 0 || VersionBreaking.closerToCenterThan(targetPosition, owner.position(), 2.0D)){
+			if(this.targetPosition == null || random().nextInt(30) == 0 || targetPosition.closerToCenterThan(owner.position(), 2.0D)){
 				// Use to be off mob x,y,z but he just tries to fly away constantly.
-				this.targetPosition = VersionBreaking.blockPos(ownerLoc.getX() + random().nextInt(flyRange) - random().nextInt(flyRange), ownerLoc.getY() + random().nextInt(flyRange - 1) - 2.0D, ownerLoc.getZ() + random().nextInt(flyRange) - random().nextInt(flyRange));
+				this.targetPosition = BlockPos.containing(ownerLoc.getX() + random().nextInt(flyRange) - random().nextInt(flyRange), ownerLoc.getY() + random().nextInt(flyRange - 1) - 2.0D, ownerLoc.getZ() + random().nextInt(flyRange) - random().nextInt(flyRange));
 			}
 			
 			double d0 = (double) this.targetPosition.getX() + 0.5D - this.getX();// Should these values be off the player loc

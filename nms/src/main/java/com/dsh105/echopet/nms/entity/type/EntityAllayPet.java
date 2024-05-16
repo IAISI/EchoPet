@@ -54,7 +54,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -148,7 +148,7 @@ public class EntityAllayPet extends Allay implements IEntityLivingPet, EntityPet
 	@Override
 	public void setLocation(Location location){
 		this.absMoveTo(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-		VersionBreaking.setLevel(this, ((CraftWorld) location.getWorld()).getHandle());
+		setLevel(((CraftWorld) location.getWorld()).getHandle());
 	}
 	
 	@Override
@@ -193,12 +193,12 @@ public class EntityAllayPet extends Allay implements IEntityLivingPet, EntityPet
 		if(result == null){
 			VersionBreaking.setFlyingSpeed(this, 0.02F);
 			super.travel(vec3d);
-			VersionBreaking.calculateEntityAnimation(this, false);
+			calculateEntityAnimation(false);
 			return;
 		}
 		setSpeed(petHandle.getSpeed());
 		petHandle.originalTravel(this, result);
-		VersionBreaking.calculateEntityAnimation(this, false);
+		calculateEntityAnimation(false);
 	}
 	
 	@Override

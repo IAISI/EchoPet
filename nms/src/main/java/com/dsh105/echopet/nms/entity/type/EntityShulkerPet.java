@@ -42,11 +42,11 @@ public class EntityShulkerPet extends EntityPet implements IEntityShulkerPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_ATTACH_FACE_ID, Direction.DOWN);
-		this.entityData.define(DATA_PEEK_ID, (byte) 0);
-		this.entityData.define(DATA_COLOR_ID, (byte) 16); // No Color
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_ATTACH_FACE_ID, Direction.DOWN);
+		builder.define(DATA_PEEK_ID, (byte) 0);
+		builder.define(DATA_COLOR_ID, (byte) 16); // No Color
 	}
 	
 	@Override

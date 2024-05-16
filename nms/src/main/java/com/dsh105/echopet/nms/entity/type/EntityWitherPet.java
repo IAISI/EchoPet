@@ -59,12 +59,12 @@ public class EntityWitherPet extends EntityPet implements IEntityWitherPet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(a, Integer.valueOf(0));
-		this.entityData.define(b, Integer.valueOf(0));
-		this.entityData.define(c, Integer.valueOf(0));
-		this.entityData.define(SHIELDED, Integer.valueOf(0));
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(a, Integer.valueOf(0));
+		builder.define(b, Integer.valueOf(0));
+		builder.define(c, Integer.valueOf(0));
+		builder.define(SHIELDED, Integer.valueOf(0));
 	}
 	
 	@Override

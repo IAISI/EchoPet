@@ -54,8 +54,8 @@ public class EntitySkeletonPet extends EntitySkeletonAbstractPet implements IEnt
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_STRAY_CONVERSION_ID, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_STRAY_CONVERSION_ID, false);
 	}
 }

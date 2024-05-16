@@ -79,9 +79,9 @@ public class EntitySlimePet extends EntityPet implements IEntitySlimePet{
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(ID_SIZE, 1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(ID_SIZE, 1);
 	}
 	
 	@Override

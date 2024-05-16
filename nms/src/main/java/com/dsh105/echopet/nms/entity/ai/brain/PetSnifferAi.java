@@ -92,10 +92,10 @@ public class PetSnifferAi{
 	}
 	
 	private static void initCoreActivity(Brain<Sniffer> brain){
-		brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(2.0F){
+		brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic<Sniffer>(2.0F){
 			@Override
-			protected void start(ServerLevel serverLevel, PathfinderMob pathfinderMob, long l){
-				PetSnifferAi.resetSniffing((Sniffer) pathfinderMob);
+			protected void start(ServerLevel serverLevel, Sniffer pathfinderMob, long l){
+				PetSnifferAi.resetSniffing(pathfinderMob);
 				super.start(serverLevel, pathfinderMob, l);
 			}
 		}, new MoveToTargetSink(10000, 15000), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
@@ -110,7 +110,7 @@ public class PetSnifferAi{
 	}
 	
 	private static void initIdleActivity(Brain<Sniffer> brain){
-		brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new AnimalMakeLove(EntityType.SNIFFER, 1.0F){
+		brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new AnimalMakeLove(EntityType.SNIFFER){
 			@Override
 			protected void start(ServerLevel serverLevel, Animal animal, long l){
 				PetSnifferAi.resetSniffing((Sniffer) animal);

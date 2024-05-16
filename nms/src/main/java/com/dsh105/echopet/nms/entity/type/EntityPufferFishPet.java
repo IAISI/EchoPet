@@ -25,9 +25,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.level.Level;
 
 @EntityPetType(petType = PetType.PUFFERFISH)
@@ -46,9 +44,9 @@ public class EntityPufferFishPet extends EntityFishPet implements IEntityPufferF
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(PUFF_STATE, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(PUFF_STATE, 0);
 	}
 	
 	public int getPuffState(){
@@ -67,10 +65,10 @@ public class EntityPufferFishPet extends EntityFishPet implements IEntityPufferF
 		refreshDimensions();
 	}
 	
-	@Override
-	public EntityDimensions getDimensions(Pose entitypose){
-		return super.getDimensions(entitypose).scale(getScale(getPuffState()));
-	}
+	/*@Override
+	public final EntityDimensions getDimensions(Pose pose) {
+		return super.getDimensions(pose).scale(getScale(getPuffState()));
+	}*/
 	
 	private static float getScale(int i){
 		return switch(i){

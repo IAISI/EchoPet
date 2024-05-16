@@ -43,8 +43,8 @@ public class EntityPillagerPet extends EntityAbstractIllagerPet implements IEnti
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(IS_CHARGING_CROSSBOW, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(IS_CHARGING_CROSSBOW, false);
 	}
 }

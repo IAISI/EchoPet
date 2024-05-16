@@ -47,10 +47,10 @@ public class EntityDolphinPet extends EntityWaterAnimalPet implements IEntityDol
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(TREASURE_POS, BlockPos.ZERO);
-		this.entityData.define(GOT_FISH, false);
-		this.entityData.define(MOISTNESS_LEVEL, 2400);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(TREASURE_POS, BlockPos.ZERO);
+		builder.define(GOT_FISH, false);
+		builder.define(MOISTNESS_LEVEL, 2400);
 	}
 }

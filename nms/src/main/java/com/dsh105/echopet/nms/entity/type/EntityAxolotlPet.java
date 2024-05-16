@@ -43,7 +43,7 @@ import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 
 @EntityPetType(petType = PetType.AXOLOTL)
@@ -98,7 +98,7 @@ public class EntityAxolotlPet extends Axolotl implements IEntityAgeablePet, Enti
 	@Override
 	public void setLocation(Location location){
 		this.absMoveTo(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-		VersionBreaking.setLevel(this, ((CraftWorld) location.getWorld()).getHandle());
+		setLevel(((CraftWorld) location.getWorld()).getHandle());
 	}
 	
 	@Override

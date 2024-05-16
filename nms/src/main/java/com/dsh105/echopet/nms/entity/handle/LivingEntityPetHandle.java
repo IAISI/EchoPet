@@ -21,7 +21,6 @@ package com.dsh105.echopet.nms.entity.handle;
 import com.dsh105.echopet.compat.api.entity.IPetType;
 import com.dsh105.echopet.compat.api.entity.nms.IEntityLivingPet;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
-import com.dsh105.echopet.nms.DamageSourceType;
 import com.dsh105.echopet.nms.NMSEntityUtil;
 import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.INMSLivingEntityPetHandle;
@@ -38,7 +37,7 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import org.bukkit.craftbukkit.v1_20_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
 
 public class LivingEntityPetHandle extends EntityPetHandle implements INMSLivingEntityPetHandle{
 	
@@ -75,7 +74,7 @@ public class LivingEntityPetHandle extends EntityPetHandle implements INMSLiving
 	
 	@Override
 	public void originalTravel(LivingEntity entity, Vec3 vec3d){
-		var level = VersionBreaking.level(entity);
+		var level = entity.level();
 		if(entity.isEffectiveAi() || entity.isControlledByLocalInstance()){
 			double d0 = 0.08;
 			boolean flag = entity.getDeltaMovement().y <= 0.0;
@@ -185,7 +184,7 @@ public class LivingEntityPetHandle extends EntityPetHandle implements INMSLiving
 						float f3 = (float) (d7 * 10.0 - 3.0);
 						if(f3 > 0.0F){
 							entity.playSound(getFallDamageSound(entity, (int) f3), 1.0F, 1.0F);
-							entity.hurt(VersionBreaking.getDamageSource(entity, DamageSourceType.FLY_INTO_WALL), f3);
+							entity.hurt(entity.damageSources().flyIntoWall(), f3);
 						}
 					}
 					
@@ -221,11 +220,11 @@ public class LivingEntityPetHandle extends EntityPetHandle implements INMSLiving
 			}
 		}
 		
-		VersionBreaking.calculateEntityAnimation(entity, entity instanceof FlyingAnimal);
+		entity.calculateEntityAnimation(entity instanceof FlyingAnimal);
 	}
 	
 	protected BlockPos getBlockPosBelowThatAffectsMyMovement(LivingEntity entity){
-		return VersionBreaking.blockPos(entity.position().x, entity.getBoundingBox().minY - 0.5000001, entity.position().z);
+		return BlockPos.containing(entity.position().x, entity.getBoundingBox().minY - 0.5000001, entity.position().z);
 	}
 	
 	private SoundEvent getFallDamageSound(LivingEntity entity, int i){

@@ -43,6 +43,6 @@ public class EntityTameablePetHandle extends EntityAgeablePetHandle implements I
 	
 	@Override
 	public void setTamed(boolean tamed){
-		get().setTame(tamed);
+		get().setTame(tamed, false);
 	}
 }

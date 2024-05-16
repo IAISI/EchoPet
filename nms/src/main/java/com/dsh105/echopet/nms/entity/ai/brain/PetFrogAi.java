@@ -18,7 +18,6 @@
 package com.dsh105.echopet.nms.entity.ai.brain;
 
 
-import com.dsh105.echopet.nms.VersionBreaking;
 import com.dsh105.echopet.nms.entity.ai.brain.behavior.BrainFollowOwner;
 import com.dsh105.echopet.nms.entity.ai.brain.behavior.RandomStrollAroundOwner;
 import com.dsh105.echopet.nms.entity.ai.brain.behavior.ShootTongueOwner;
@@ -54,7 +53,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.PathfindingContext;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 public class PetFrogAi{
@@ -125,7 +125,7 @@ public class PetFrogAi{
 						Pair.of(new RandomStrollAroundOwner(SPEED_MULTIPLIER_ON_LAND), 1),
 						Pair.of(SetWalkTargetFromLookTarget.create(SPEED_MULTIPLIER_ON_LAND, 3), 1),
 						Pair.of(new Croak(), 3),
-						Pair.of(BehaviorBuilder.triggerIf(VersionBreaking::onGround), 2)
+						Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 2)
 					)
 				))
 			), ImmutableSet.of(Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryStatus.VALUE_ABSENT),
@@ -200,16 +200,19 @@ public class PetFrogAi{
 		frog.getBrain().setActiveActivityToFirstValid(ACTIVITIES);
 	}
 	
-	private static <E extends Mob> boolean isAcceptableLandingSpot(E entity, BlockPos var1) {
-		Level var2 = VersionBreaking.level(entity);
-		BlockPos var3 = var1.below();
-		if (var2.getFluidState(var1).isEmpty() && var2.getFluidState(var3).isEmpty() && var2.getFluidState(var1.above()).isEmpty()) {
-			BlockState var4 = var2.getBlockState(var1);
-			BlockState var5 = var2.getBlockState(var3);
-			if (!var4.is(BlockTags.FROG_PREFER_JUMP_TO) && !var5.is(BlockTags.FROG_PREFER_JUMP_TO)) {
-				BlockPathTypes var6 = WalkNodeEvaluator.getBlockPathTypeStatic(var2, var1.mutable());
-				BlockPathTypes var7 = WalkNodeEvaluator.getBlockPathTypeStatic(var2, var3.mutable());
-				return var6==BlockPathTypes.TRAPDOOR || (var4.isAir() && var7==BlockPathTypes.TRAPDOOR) || LongJumpToRandomPos.defaultAcceptableLandingSpot(entity, var1);
+	private static <E extends Mob> boolean isAcceptableLandingSpot(E frog, BlockPos pos) {
+		Level level = frog.level();
+		BlockPos blockPos = pos.below();
+		if (level.getFluidState(pos).isEmpty() && level.getFluidState(blockPos).isEmpty() && level.getFluidState(pos.above()).isEmpty()) {
+			BlockState blockState = level.getBlockState(pos);
+			BlockState blockState2 = level.getBlockState(blockPos);
+			if (!blockState.is(BlockTags.FROG_PREFER_JUMP_TO) && !blockState2.is(BlockTags.FROG_PREFER_JUMP_TO)) {
+				PathfindingContext pathfindingContext = new PathfindingContext(frog.level(), frog);
+				PathType pathType = WalkNodeEvaluator.getPathTypeStatic(pathfindingContext, pos.mutable());
+				PathType pathType2 = WalkNodeEvaluator.getPathTypeStatic(pathfindingContext, blockPos.mutable());
+				return pathType != PathType.TRAPDOOR && (!blockState.isAir() || pathType2 != PathType.TRAPDOOR)
+					? LongJumpToRandomPos.defaultAcceptableLandingSpot(frog, pos)
+					: true;
 			} else {
 				return true;
 			}

@@ -21,14 +21,11 @@ import com.dsh105.echopet.compat.api.entity.IPetType;
 import com.dsh105.echopet.compat.api.entity.nms.IEntityPet;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public interface ISpawnUtil{
 	
 	IEntityPet spawn(IPet pet, Player owner);
-	
-	ItemStack getSpawnEgg(ItemStack i, String entityTag);
 	
 	<T> T getAttribute(IPetType petType, String attributeKey);
 	

@@ -21,7 +21,6 @@ import com.dsh105.echopet.compat.api.entity.EntityPetType;
 import com.dsh105.echopet.compat.api.entity.PetType;
 import com.dsh105.echopet.compat.api.entity.pet.IPet;
 import com.dsh105.echopet.compat.api.entity.type.nms.IEntityGlowSquidPet;
-import com.dsh105.echopet.nms.VersionBreaking;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -46,15 +45,15 @@ public class EntityGlowSquidPet extends EntitySquidPet implements IEntityGlowSqu
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_DARK_TICKS_REMAINING, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_DARK_TICKS_REMAINING, 0);
 	}
 	
 	@Override
 	public void aiStep(){
 		super.aiStep();
-		VersionBreaking.level(this).addParticle(ParticleTypes.GLOW, getRandomX(0.6D), getRandomY(), getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+		level().addParticle(ParticleTypes.GLOW, getRandomX(0.6D), getRandomY(), getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
 	}
 	
 	@Override

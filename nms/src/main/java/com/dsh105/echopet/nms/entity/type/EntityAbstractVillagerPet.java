@@ -40,8 +40,8 @@ public class EntityAbstractVillagerPet extends EntityAgeablePet implements IEnti
 	}
 	
 	@Override
-	public void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_UNHAPPY_COUNTER, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_UNHAPPY_COUNTER, 0);
 	}
 }

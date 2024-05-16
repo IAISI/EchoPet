@@ -40,8 +40,8 @@ public abstract class EntityAbstractPiglinPet extends EntityPet implements IEnti
 	}
 	
 	@Override
-	protected void defineSynchedData(){
-		super.defineSynchedData();
-		this.entityData.define(DATA_IMMUNE_TO_ZOMBIFICATION, true); // Default to true to remove shaking
+	protected void defineSynchedData(SynchedEntityData.Builder builder){
+		super.defineSynchedData(builder);
+		builder.define(DATA_IMMUNE_TO_ZOMBIFICATION, true); // Default to true to remove shaking
 	}
 }
