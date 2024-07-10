@@ -130,4 +130,9 @@ public class EntityBeePet extends Bee implements IEntityAgeablePet, EntityPetGiv
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

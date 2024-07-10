@@ -165,4 +165,9 @@ public class EntityFrogPet extends Frog implements IEntityLivingPet, EntityPetGi
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

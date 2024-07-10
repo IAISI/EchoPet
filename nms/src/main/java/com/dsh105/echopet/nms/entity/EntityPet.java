@@ -382,6 +382,11 @@ public abstract class EntityPet extends Mob implements IEntityLivingPet{
 		//
 	}
 	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
+	
 	/*private static java.lang.reflect.Field bukkitEntityField;
 	
 	static{

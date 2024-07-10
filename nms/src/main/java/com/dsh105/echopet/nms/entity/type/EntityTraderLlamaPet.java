@@ -107,4 +107,9 @@ public class EntityTraderLlamaPet extends TraderLlama implements IEntityAnimalPe
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

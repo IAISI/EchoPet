@@ -144,4 +144,9 @@ public class EntityAxolotlPet extends Axolotl implements IEntityAgeablePet, Enti
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

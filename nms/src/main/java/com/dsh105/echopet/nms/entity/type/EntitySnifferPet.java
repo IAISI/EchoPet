@@ -150,4 +150,9 @@ public class EntitySnifferPet extends Sniffer implements IEntityAnimalPet, Entit
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

@@ -107,4 +107,9 @@ public class EntityZombieHorsePet extends ZombieHorse implements IEntityAnimalPe
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

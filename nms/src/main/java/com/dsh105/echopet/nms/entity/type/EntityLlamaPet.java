@@ -107,4 +107,9 @@ public class EntityLlamaPet extends Llama implements IEntityAnimalPet, EntityPet
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

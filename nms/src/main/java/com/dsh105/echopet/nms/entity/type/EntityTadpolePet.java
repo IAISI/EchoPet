@@ -209,4 +209,9 @@ public class EntityTadpolePet extends Tadpole implements IEntityFishPet, EntityP
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

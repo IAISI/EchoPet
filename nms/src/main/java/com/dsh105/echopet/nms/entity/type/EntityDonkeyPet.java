@@ -107,5 +107,10 @@ public class EntityDonkeyPet extends Donkey implements IEntityAnimalPet, EntityP
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }
 

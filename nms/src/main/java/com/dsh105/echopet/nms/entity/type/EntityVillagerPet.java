@@ -236,4 +236,9 @@ public class EntityVillagerPet extends Villager implements IEntityLivingPet, Ent
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

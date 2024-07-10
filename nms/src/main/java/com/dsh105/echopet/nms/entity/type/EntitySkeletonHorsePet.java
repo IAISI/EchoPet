@@ -107,5 +107,10 @@ public class EntitySkeletonHorsePet extends SkeletonHorse implements IEntityAnim
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }
 

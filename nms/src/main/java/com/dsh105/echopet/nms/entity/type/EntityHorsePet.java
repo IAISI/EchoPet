@@ -106,4 +106,9 @@ public class EntityHorsePet extends net.minecraft.world.entity.animal.horse.Hors
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

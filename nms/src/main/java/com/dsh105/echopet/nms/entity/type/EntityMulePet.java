@@ -107,4 +107,9 @@ public class EntityMulePet extends Mule implements IEntityAnimalPet, EntityPetGi
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

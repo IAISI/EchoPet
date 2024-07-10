@@ -206,4 +206,9 @@ public class EntityAllayPet extends Allay implements IEntityLivingPet, EntityPet
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

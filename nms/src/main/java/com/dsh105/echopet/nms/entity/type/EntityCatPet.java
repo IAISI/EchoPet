@@ -117,4 +117,9 @@ public class EntityCatPet extends Cat implements IEntityTameablePet, EntityPetGi
 	public void setTamed(boolean tamed){
 	
 	}
+	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
 }

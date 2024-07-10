@@ -213,6 +213,11 @@ public class EntityWardenPet extends Warden implements IEntityLivingPet, EntityP
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbttagcompound){}
 	
+	@Override
+	public boolean shouldBeSaved(){
+		return false;
+	}
+	
 	public static class CustomAngerManagement extends AngerManagement{
 		
 		private int anger;
