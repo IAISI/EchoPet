@@ -322,7 +322,7 @@ public abstract class EntityPet extends Mob implements IEntityLivingPet{
 	}
 	
 	public SoundEvent getSoundFromString(String soundName){
-		return soundName != null ? BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(soundName)) : null;
+		return soundName != null ? BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse(soundName)) : null;
 		// mojang made this method private
 		// return soundName != null ? SoundEffect.a.get(new MinecraftKey(soundName)) : null;
 	}

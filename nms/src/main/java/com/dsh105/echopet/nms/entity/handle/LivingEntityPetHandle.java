@@ -34,7 +34,6 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
@@ -93,7 +92,7 @@ public class LivingEntityPetHandle extends EntityPetHandle implements INMSLiving
 				d1 = entity.getY();
 				f = entity.isSprinting() ? 0.9F : getWaterSlowDown();
 				float f1 = 0.02F;
-				f2 = (float) EnchantmentHelper.getDepthStrider(entity);
+				f2 = (float) VersionBreaking.getWaterEfficiency(entity);
 				if(f2 > 3.0F){
 					f2 = 3.0F;
 				}

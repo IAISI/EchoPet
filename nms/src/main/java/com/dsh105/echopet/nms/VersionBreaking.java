@@ -19,6 +19,7 @@ package com.dsh105.echopet.nms;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class VersionBreaking{
 	
@@ -37,5 +38,12 @@ public class VersionBreaking{
 		// 1.19.4 does it in LivingEntity and doesn't seem to be required by us anymore?
 		// 1.20.5+
 		// idk haha
+	}
+	
+	public static double getWaterEfficiency(LivingEntity entity){
+		// 1.20.6
+		// return EnchantmentHelper.getDepthStrider(entity);
+		// 1.21+
+		return entity.getAttributeValue(Attributes.WATER_MOVEMENT_EFFICIENCY);
 	}
 }
