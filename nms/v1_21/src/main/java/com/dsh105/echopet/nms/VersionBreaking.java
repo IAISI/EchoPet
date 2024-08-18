@@ -28,7 +28,10 @@ public class VersionBreaking{
 	}
 	
 	public static void setFlyingSpeed(LivingEntity entity, float flyingSpeed){
-		//
+		if(entity.getAttribute(Attributes.FLYING_SPEED) == null)
+			entity.getAttributes().registerAttribute(Attributes.FLYING_SPEED);
+
+		entity.getAttribute(Attributes.FLYING_SPEED).setBaseValue(flyingSpeed);
 	}
 	
 	public static double getWaterEfficiency(LivingEntity entity){
